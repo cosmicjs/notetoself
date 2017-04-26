@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const vorpal = require('vorpal')();
 const chalk = require('chalk');
 var inquirer = require('inquirer');
@@ -12,11 +13,7 @@ config.bucket = {
 }
 const Cosmic = require('cosmicjs');
 
-vorpal
-  .command('new')
-  .option('-t, --tags <tags>','Tags are seperated with commas')
-  .action(function(args, callback){
-    inquirer.prompt(
+inquirer.prompt(
       {
         type: 'list',
         name: 'mainMenu',
@@ -139,8 +136,3 @@ vorpal
         })
       }
     })
-  })
-  
-vorpal
-  .delimiter(chalk.yellow('~ notes$'))
-  .show();
