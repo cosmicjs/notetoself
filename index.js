@@ -74,7 +74,65 @@ vorpal
                   choices: noteText
                 }
               ).then((answers)=>{
-                console.log(answers)
+                var regexSearch = /(\w{17})/
+                var newvalue = answers.allnotes.match(regexSearch)
+                Cosmic.getObject(config, {slug: newvalue[0]}, (error, response)=>{
+                  inquirer.prompt({
+                    type: 'expand',
+                    message: chalk.blue(response.object.content),
+                    name: 'morecontext',
+                    choices: [
+                      {
+                        key: 'e',
+                        name: 'Edit',
+                        value: 'edit'
+                      },
+                      {
+                        key: 'd',
+                        name: 'Delete',
+                        value: 'delete'
+                      },
+                      {
+                        key: 'l',
+                        name: 'Leave',
+                        value: 'leave'
+                      }
+                    ]
+                  }).then((answers)=>{
+                    if(answers.morecontext === 'edit'){
+                      inquirer.prompt(
+                        {
+                          type: 'input',
+                          name: 'newText',
+                          message: 'New Text:'
+                        }).then((answers)=>{
+                          console.log(answers.newText)
+                          var params = {
+                            write_key: config.bucket.write_key,
+                            slug: response.object.title,
+                            type_slug: 'notes',
+                            title: response.object.title,
+                            content: answers.newText
+                          }
+                          Cosmic.editObject(config, params, (error, response)=>{
+                            if(error){
+                              console.log(error)
+                            }
+                          })
+                        })
+                    } else {
+                      var params = {
+                        write_key: config.bucket.write_key,
+                        slug: response.object.title
+                      }
+                      Cosmic.deleteObject(config, params, (error, response)=>{
+                        if(error){
+                          console.log(error)
+                        }
+                      })
+                    }
+                  })
+                })
               })
             }
           })
