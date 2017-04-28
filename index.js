@@ -93,7 +93,7 @@ const ViewNotes = () => {
         name: note.title,
         slug: note.slug
       }
-      noteText.push(chalk.red('slug - '+note.slug + ' | ') + chalk.blue(note.title))
+      noteText.push(chalk.blue(note.title) + chalk.hidden('slug - '+note.slug + ' | ') )
       notes.push(newnote)
       if(notes.length === amount){
         inquirer.prompt(
