@@ -36,7 +36,7 @@ const MainMenu = () => {
   })
 }
 
-MainMenu()
+MainMenu() //Creates the main menu and starts the application
 
 const NewNote = () => {
   var question = {
@@ -52,12 +52,20 @@ const NewNote = () => {
       title: answers.note_text,
       content: ''
     }
+    if(answers.note_text === ''){
+      console.log(chalk.red("You cannot add an empty note"))
+      MainMenu()
+      return;
+    }
     Cosmic.addObject(config, params, (error, response) =>{
+      if(response.object){
+        console.log(chalk.green("\u2713" + " Success"))
+      }
       if(error){
         console.log(error)
       }
+      MainMenu()
     })
-    MainMenu()
   })
 }
 
@@ -68,15 +76,19 @@ const ViewNotes = () => {
     skip: 0
   };
         
-  Cosmic.getObjectType(config, params, (error, response)=>{
+  Cosmic.getObjectType(config, params, (error, response)=>{ //fetches all notes
     var notes = []
-    var noteText = []
+    var noteText = [chalk.yellow("Return")]
     if(response.total === undefined){
       console.log(chalk.red("No notes found."))
-      process.exit()
+      MainMenu()
+      return;
     }
+    sortedresponse = response.objects.all.sort((a,b)=>{
+      return new Date(b.created) - new Date(a.created)
+    })
     const amount = response.objects.all.length
-    response.objects.all.map((note)=>{
+    sortedresponse.map((note)=>{
       var newnote = {
         name: note.title,
         slug: note.slug
@@ -91,6 +103,10 @@ const ViewNotes = () => {
             message: 'All Notes:',
             choices: noteText
           }).then((answers)=>{
+            if(answers.allnotes === "\u001b[33mReturn\u001b[39m"){
+              MainMenu()
+              return;
+            }
             var regexSearch = /(\w{17})/
             var newvalue = answers.allnotes.match(regexSearch)
             Cosmic.getObject(config, {slug: newvalue[0]}, (error, response)=>{
@@ -130,6 +146,9 @@ const ViewNotes = () => {
                           content: ''
                         }
                         Cosmic.editObject(config, params, (error, response)=>{
+                          if(response.object){
+                            console.log(chalk.green("\u2713" + " Success"))
+                          }
                           MainMenu()
                         })
                       })
@@ -143,9 +162,13 @@ const ViewNotes = () => {
                       if(error){
                         console.log(error)
                       }
-                    })
+                      if(response.object){
+                        console.log(chalk.green("\u2713" + " Success"))
+                      }
+                      MainMenu();
+                    });
                   } else {
-                    MainMenu()
+                    MainMenu();
                   }
                 })
               })
