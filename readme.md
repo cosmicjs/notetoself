@@ -14,8 +14,8 @@ yarn
 ```
 config.bucket = {
   slug: 'your-bucket-slug', // add your slug here
-  read_key: '',
-  write_key: ''
+  read_key: '', // add read key if added to Cosmic JS > Your Bucket > Settings
+  write_key: '' // add write key if added to Cosmic JS > Your Bucket > Settings
 }
 ```
 2. Install the app globally
