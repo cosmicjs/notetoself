@@ -1,7 +1,7 @@
 # Note to Self
 ![Note App](https://cosmicjs.com/uploads/58fb06b0-2dbb-11e7-826f-f34de0199ac5-note-to-self.png)
 ## Getting Started
-1. Go to [Cosmic JS](https://cosmicjs.com) and create a new Bucket to save notes to.
+1. Go to [Cosmic JS](https://cosmicjs.com) and create a new Bucket that will store your notes.
 2. Download the Note to Self repo:
 ```
 git clone https://github.com/cosmicjs/notetoself
