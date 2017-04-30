@@ -5,6 +5,7 @@
 2. Download the Note to Self repo:
 ```
 git clone https://github.com/cosmicjs/notetoself
+cd notetoself
 yarn
 ```
 
