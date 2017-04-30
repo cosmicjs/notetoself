@@ -11,7 +11,7 @@ yarn
 
 ## Starting the app
 1. Edit the config part of `index.js` to point to your Cosmic JS Bucket Slug
-```
+```javascript
 config.bucket = {
   slug: 'your-bucket-slug', // add your slug here
   read_key: '', // add read key if added to Cosmic JS > Your Bucket > Settings
