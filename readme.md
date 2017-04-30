@@ -1,4 +1,4 @@
-Today i'm going to show you how  to build a simple note taking app that can be used inside of your command line.
+Today I'm going to show you how  to build a simple note taking app that can be used inside of your command line.
 We're going to use CosmicJS which allows us to view these notes from anywhere on any device.
 
 # Setup
