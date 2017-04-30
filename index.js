@@ -6,13 +6,16 @@ const Random = require('meteor-random');
 
 var config = {};
 config.bucket = {
-  slug: '',
+  slug: process.env.COSMIC_BUCKET,
   read_key: '',
   write_key: ''
 }
 const Cosmic = require('cosmicjs');
 
 const MainMenu = () => {
+  if (!config.bucket.slug) {
+    console.log(chalk.red('ERROR: You must start the app with COSMIC_BUCKET=your-bucket-slug environment variable before running this app.'))
+  }
   inquirer.prompt(
     {
       type: 'list',
@@ -39,6 +42,10 @@ const MainMenu = () => {
 MainMenu() //Creates the main menu and starts the application
 
 const NewNote = () => {
+  if (!config.bucket.slug) {
+    MainMenu()
+    return
+  }
   var question = {
     type: 'input',
     name: 'note_text',
@@ -70,6 +77,10 @@ const NewNote = () => {
 }
 
 const ViewNotes = () => {
+  if (!config.bucket.slug) {
+    MainMenu()
+    return
+  }
   var params = {
     type_slug: 'notes',
     limit: 10,
@@ -79,7 +90,7 @@ const ViewNotes = () => {
   Cosmic.getObjectType(config, params, (error, response)=>{ //fetches all notes
     var notes = []
     var noteText = [chalk.yellow("Return")]
-    if(response.total === undefined){
+    if(error || response.total === undefined){
       console.log(chalk.red("No notes found."))
       MainMenu()
       return;
