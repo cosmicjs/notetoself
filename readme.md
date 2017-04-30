@@ -22,7 +22,8 @@ config.bucket = {
 ```
 npm install -g
 ```
-3. Anywhere view / create / edit / delete notes with the following command:
+3. Now you can view / create / edit / delete notes with the following command:
 ```
 notetoself
 ```
+Your notes are now available to any device and any programming language through the [Cosmic JS API](https://cosmicjs.com).
