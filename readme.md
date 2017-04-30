@@ -1,5 +1,5 @@
 # Note to Self
-![Note App](https://cosmicjs.com/uploads/c31a0400-2d5d-11e7-b637-1d1d0fc1eab1-Screen%20Shot%202017-04-29%20at%2011.30.19%20PM.png)
+![Note App](https://cosmicjs.com/uploads/3e233540-2d5e-11e7-b637-1d1d0fc1eab1-note-app.jpg)
 ## Getting Started
 1. Go to [Cosmic JS](https://cosmicjs.com) and create a new Bucket.
 2. Download the Note to Self repo:
